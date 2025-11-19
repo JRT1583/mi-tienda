@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Tienda</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Conekta Component -->
+  <script src="https://cdn.conekta.io/js/latest/conekta.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Mi Tienda Online</h1>
+  </header>
+
+  <main>
+    <section class="productos">
+      <h2>Productos</h2>
+      <div class="producto" data-nombre="Producto 1" data-precio="100">
+        <h3>Producto 1</h3>
+        <p>Precio: $100 MXN</p>
+        <button class="agregar-carrito">Agregar al carrito</button>
+      </div>
+
+      <div class="producto" data-nombre="Producto 2" data-precio="200">
+        <h3>Producto 2</h3>
+        <p>Precio: $200 MXN</p>
+        <button class="agregar-carrito">Agregar al carrito</button>
+      </div>
+    </section>
+
+    <section class="carrito">
+      <h2>Carrito</h2>
+      <ul id="lista-carrito"></ul>
+      <p>Total: $<span id="total">0</span> MXN</p>
+      <button id="pagar">Pagar con Conekta</button>
+    </section>
+  </main>
+
+  <script src="carrito.js"></script>
+</body>
+</html>
