@@ -39,9 +39,9 @@ document.getElementById('pagar').addEventListener('click', () => {
   const totalCentavos = total * 100;
 
   // Inicializar Conekta
-  Conekta.setPublicKey('TU_LLAVE_PUBLICA_AQUI');
+  Conekta.setPublicKey('key_H2GOcFJgkRg0FTh5sIkaLfQ');
 
-  Conekta.checkout.setup('TU_LLAVE_PUBLICA_AQUI', {
+  Conekta.checkout.setup('key_H2GOcFJgkRg0FTh5sIkaLfQ', {
     currency: 'MXN',
     amount: totalCentavos,
     name: 'Mi Tienda',
