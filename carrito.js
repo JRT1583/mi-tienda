@@ -37,7 +37,7 @@ document.getElementById('pagar').addEventListener('click', () => {
 
   const totalCentavos = total * 100;
 
-  const PUBLIC_KEY = 'TU_LLAVE_PUBLICA_SANDBOX'; // pega tu llave sandbox aquí
+  const PUBLIC_KEY = 'key_H2GOcFJgkRg0FTh5sIkaLfQ'; // pega tu llave sandbox aquí
   Conekta.setPublicKey(PUBLIC_KEY);
 
   Conekta.checkout.setup(PUBLIC_KEY, {
