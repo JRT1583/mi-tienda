@@ -1,50 +1,53 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Tienda Sandbox</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Conekta Component -->
-  <script src="https://cdn.conekta.io/js/latest/conekta.js"></script>
-</head>
-<body>
-  <header>
-    <h1>Mi Tienda Online - Sandbox</h1>
-  </header>
+let carrito = [];
+let total = 0;
 
-  <main>
-    <section class="productos">
-      <h2>Productos</h2>
+const listaCarrito = document.getElementById('lista-carrito');
+const totalCarrito = document.getElementById('total');
 
-      <div class="producto" data-nombre="Producto 1" data-precio="100">
-        <h3>Producto 1</h3>
-        <p>Precio: $100 MXN</p>
-        <button class="agregar-carrito">Agregar al carrito</button>
-      </div>
+// Agregar productos al carrito
+document.querySelectorAll('.agregar-carrito').forEach(boton => {
+  boton.addEventListener('click', () => {
+    const producto = boton.parentElement;
+    const nombre = producto.dataset.nombre;
+    const precio = parseFloat(producto.dataset.precio);
 
-      <div class="producto" data-nombre="Producto 2" data-precio="200">
-        <h3>Producto 2</h3>
-        <p>Precio: $200 MXN</p>
-        <button class="agregar-carrito">Agregar al carrito</button>
-      </div>
+    carrito.push({nombre, precio});
+    total += precio;
 
-      <div class="producto" data-nombre="Producto 3" data-precio="150">
-        <h3>Producto 3</h3>
-        <p>Precio: $150 MXN</p>
-        <button class="agregar-carrito">Agregar al carrito</button>
-      </div>
+    actualizarCarrito();
+  });
+});
 
-    </section>
+function actualizarCarrito() {
+  listaCarrito.innerHTML = '';
+  carrito.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.nombre} - $${item.precio} MXN`;
+    listaCarrito.appendChild(li);
+  });
+  totalCarrito.textContent = total;
+}
 
-    <section class="carrito">
-      <h2>Carrito</h2>
-      <ul id="lista-carrito"></ul>
-      <p>Total: $<span id="total">0</span> MXN</p>
-      <button id="pagar">Pagar con Conekta</button>
-    </section>
-  </main>
+// Integración con Conekta Sandbox
+document.getElementById('pagar').addEventListener('click', () => {
+  if(carrito.length === 0){
+    alert("Tu carrito está vacío");
+    return;
+  }
 
-  <script src="carrito.js"></script>
-</body>
-</html>
+  const totalCentavos = total * 100;
+
+  const PUBLIC_KEY = 'TU_LLAVE_PUBLICA_SANDBOX'; // pega tu llave sandbox aquí
+  Conekta.setPublicKey(PUBLIC_KEY);
+
+  Conekta.checkout.setup(PUBLIC_KEY, {
+    currency: 'MXN',
+    amount: totalCentavos,
+    name: 'Mi Tienda Sandbox',
+    description: 'Compra de productos',
+    image: 'https://via.placeholder.com/150', // puedes poner tu logo
+    success_url: window.location.href,
+    cancel_url: window.location.href,
+    button_text: 'Pagar Ahora'
+  });
+});
